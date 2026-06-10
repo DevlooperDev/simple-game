@@ -3,12 +3,12 @@ import pygame
 pygame.init()
 
 class Button():
-    def __init__(self, image, hovering_image, pressed_image, pos, width, height, text_input, font, base_color, hovering_color):
+    def __init__(self, image, hovering_image, pressed_image, pos, text_input, font, base_color, hovering_color):
         self.image = image
         self.hovering_image = hovering_image
         self.pressed_image = pressed_image
-        self.width = width
-        self.height = height
+        self.width = image.get_width() if image else 0
+        self.height = image.get_height() if image else 0
         self.hovering = False
         self.x = pos[0]
         self.y = pos[1]
