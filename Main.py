@@ -145,7 +145,7 @@ def main_menu():
         window.fill(darkgrey)
 
         drawText('Main Menu', font, 350, 100)
-        start_button = Button(start_button_image, start_button_hover_image, start_button_pressed_image, (w//2, h//2), '', font, (255,255,0), (255,0,0))
+        start_button = Button(start_button_image, start_button_hover_image, (w//2, h//2), '', font, (255,255,0), (255,0,0))
         start_button.changeColor(mouse_pos, window)
         start_button.update(window)
 
@@ -154,7 +154,7 @@ def main_menu():
                 pygame.quit()
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if start_button.checkForInput(mouse_pos, window):
+                if start_button.checkForInput(mouse_pos):
                     player.rect.x = 60
                     player.rect.y = 60
                     for bullet in bullets:
@@ -172,7 +172,7 @@ def pause_menu():
         window.fill(darkgrey)
 
         drawText('Paused', font, 350, 100)
-        resume_button = Button(None, None, None, (w//2, h//2), 'Resume', font, (255,255,0), (255,0,0))
+        resume_button = Button(None, None, (w//2, h//2), 'Resume', font, (255,255,0), (255,0,0))
         resume_button.changeColor(mouse_pos, window)
         resume_button.update(window)
 
@@ -181,7 +181,7 @@ def pause_menu():
                 pygame.quit()
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if resume_button.checkForInput(mouse_pos, window):
+                if resume_button.checkForInput(mouse_pos):
                     game_state = "running"
                     return
         pygame.display.update()
@@ -195,7 +195,7 @@ def lose_screen():
         window.fill(darkgrey)
 
         drawText('You lose!', font, 400, 250)
-        restart_button = Button(None, None, None, (w//2, h//2 + 100), 'Restart', font, (255,255,0), (255,0,0))
+        restart_button = Button(None, None, (w//2, h//2 + 100), 'Restart', font, (255,255,0), (255,0,0))
         restart_button.changeColor(mouse_pos, window)
         restart_button.update(window)
 
@@ -204,7 +204,7 @@ def lose_screen():
                 pygame.quit()
                 quit()
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if restart_button.checkForInput(mouse_pos, window):
+                if restart_button.checkForInput(mouse_pos):
                     main_menu()
                     return
         pygame.display.update()
