@@ -14,10 +14,10 @@ fps = 60
 startx = 0
 starty = 250
 darkgrey = (22,22,22)
-image = pygame.image.load('C:/Users/devan/Documents/Python/Simple Game/collide.png')
-start_button_image = pygame.image.load('C:/Users/devan/Documents/Python/Simple Game/Start_button.png')
-start_button_hover_image = pygame.image.load('C:/Users/devan/Documents/Python/Simple Game/Start_button_hover.png')
-start_button_pressed_image = pygame.image.load('C:/Users/devan/Documents/Python/Simple Game/Start_button_pressed.png')
+image = pygame.image.load('collide.png')
+start_button_image = pygame.image.load('Start_button.png')
+start_button_hover_image = pygame.image.load('Start_button_hover.png')
+bullet_image = pygame.image.load('Bullet.png')
 zombie = pygame.rect.Rect(50,50,50,50)
 game_state = "main_menu"
 
@@ -42,8 +42,8 @@ class Player():
         self.y = y
         self.vel = 5
         self.image = image
-        self.spritesheet_idle = pygame.image.load('C:/Users/devan/Documents/Python/Simple Game/newguy.png').convert_alpha()
-        self.spritesheet_run = pygame.image.load('C:/Users/devan/Documents/Python/Simple Game/newguy_run.png').convert_alpha()
+        self.spritesheet_idle = pygame.image.load('newguy.png').convert_alpha()
+        self.spritesheet_run = pygame.image.load('newguy_run.png').convert_alpha()
         self.idle_frames = 4
         self.run_frames = 6
         self.current_animation = "idle"
@@ -106,19 +106,21 @@ class Player():
         surface.blit(self.image, (self.rect.x, self.rect.y))
 
 class Bullet(pygame.sprite.Sprite):
-    def __init__(self, width, height, color):
+    def __init__(self, image):
+        image = pygame.transform.scale(image, (10*2, 4*2))
+        self.image = image
+        self.rect = self.image.get_rect()
         self.startdirection = random.choice(['left', 'right'])
         if self.startdirection == 'left':
-            self.x = 0
+            self.rect.x = 0
         if self.startdirection == 'right':
-            self.x = 900
-        self.y = random.randint(5, 495)
+            self.rect.x = 900
+        self.rect.y = random.randint(5, 495)
         pygame.sprite.Sprite.__init__(self)
-        self.rect = pygame.Rect(self.x, self.y, width, height)
         self.vel = random.randint(5, 15)
 
     def spawn(self, surface):
-        pygame.draw.rect(surface, (255, 0, 0), self.rect)
+        surface.blit(self.image, self.rect)
 
     def move(self):
         if self.startdirection == 'left':
@@ -242,7 +244,7 @@ while run:
 
         # Spawn bullets and move them
 
-        bullet = Bullet(10, 5, (255,0,0))
+        bullet = Bullet(bullet_image)
         total_bullets = len(bullets)
         if total_bullets < 5:
             bullets.add(bullet)
