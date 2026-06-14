@@ -17,6 +17,8 @@ darkgrey = (22,22,22)
 image = pygame.image.load('collide.png')
 start_button_image = pygame.image.load('Start_button.png')
 start_button_hover_image = pygame.image.load('Start_button_hover.png')
+restart_button_image = pygame.image.load('Restart_button.png')
+restart_button_hover_image = pygame.image.load('Restart_button_hover.png')
 bullet_image = pygame.image.load('Bullet.png')
 zombie = pygame.rect.Rect(50,50,50,50)
 game_state = "main_menu"
@@ -197,7 +199,7 @@ def lose_screen():
         window.fill(darkgrey)
 
         drawText('You lose!', font, 400, 250)
-        restart_button = Button(None, None, (w//2, h//2 + 100), 'Restart', font, (255,255,0), (255,0,0))
+        restart_button = Button(restart_button_image, restart_button_hover_image, (w//2, h//2 + 100), '', font, (255,255,0), (255,0,0))
         restart_button.changeColor(mouse_pos, window)
         restart_button.update(window)
 
