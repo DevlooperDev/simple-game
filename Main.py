@@ -13,12 +13,14 @@ run = True
 fps = 60
 startx = 0
 starty = 250
-darkgrey = (22,22,22)
+lightblue = (118, 166, 245)
 image = pygame.image.load('collide.png')
 start_button_image = pygame.image.load('Start_button.png')
 start_button_hover_image = pygame.image.load('Start_button_hover.png')
 restart_button_image = pygame.image.load('Restart_button.png')
 restart_button_hover_image = pygame.image.load('Restart_button_hover.png')
+resume_button_image = pygame.image.load('Resume_button.png')
+resume_button_hover_image = pygame.image.load('Resume_button_hover.png')
 bullet_image = pygame.image.load('Bullet.png')
 zombie = pygame.rect.Rect(50,50,50,50)
 game_state = "main_menu"
@@ -30,7 +32,7 @@ x = 60
 y = 60
 
 #font = pygame.font.Font(pygame.font.SysFont(None, 30), 24)
-font = pygame.font.SysFont("Arial", 48)
+font = pygame.font.Font("Pixelify_Sans/PixelifySans-VariableFont_wght.ttf", 48)
 
 def get_image(spritesheet, frame_num, width, height, scale):
     image = pygame.Surface((width, height)).convert_alpha()
@@ -146,9 +148,9 @@ def main_menu():
 
         game_state = "main_menu"
         mouse_pos = pygame.mouse.get_pos()
-        window.fill(darkgrey)
+        window.fill(lightblue)
 
-        drawText('Main Menu', font, 350, 100)
+        drawText('Main Menu', font, w//2 - 100, 100)
         start_button = Button(start_button_image, start_button_hover_image, (w//2, h//2), '', font, (255,255,0), (255,0,0))
         start_button.changeColor(mouse_pos, window)
         start_button.update(window)
@@ -173,10 +175,10 @@ def pause_menu():
 
         game_state = "pause_menu"
         mouse_pos = pygame.mouse.get_pos()
-        window.fill(darkgrey)
+        window.fill(lightblue)
 
-        drawText('Paused', font, 350, 100)
-        resume_button = Button(None, None, (w//2, h//2), 'Resume', font, (255,255,0), (255,0,0))
+        drawText('Paused', font, w//2 - 75, 100)
+        resume_button = Button(resume_button_image, resume_button_hover_image, (w//2, h//2), '', font, (255,255,0), (255,0,0))
         resume_button.changeColor(mouse_pos, window)
         resume_button.update(window)
 
@@ -196,10 +198,10 @@ def lose_screen():
 
         game_state = "stopped"
         mouse_pos = pygame.mouse.get_pos()
-        window.fill(darkgrey)
+        window.fill(lightblue)
 
-        drawText('You lose!', font, 400, 250)
-        restart_button = Button(restart_button_image, restart_button_hover_image, (w//2, h//2 + 100), '', font, (255,255,0), (255,0,0))
+        drawText('You lose!', font, w//2 - 75, h//2 - 100)
+        restart_button = Button(restart_button_image, restart_button_hover_image, (w//2, h//2), '', font, (255,255,0), (255,0,0))
         restart_button.changeColor(mouse_pos, window)
         restart_button.update(window)
 
@@ -214,7 +216,7 @@ def lose_screen():
         pygame.display.update()
 
 def drawText(text, font, x, y):
-    text_surface = font.render(text, True, (128,128,192), darkgrey)
+    text_surface = font.render(text, True, (128,128,192), lightblue)
     text_rect = text_surface.get_rect()
     text_rect.topleft = (x, y)
     window.blit(text_surface, text_rect)
@@ -257,7 +259,7 @@ while run:
 
         # Finally move the player and draw everything
         player.move(key)
-        window.fill(darkgrey)
+        window.fill(lightblue)
         #player.draw(window)
         player.animate(window)
         player.collision(bullets)
